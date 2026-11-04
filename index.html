@@ -119,6 +119,26 @@
       .lyrics-panel { min-height: 0; padding: 16px; }
       .lyrics { max-height: 280px; }
     }
+    .skip-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  margin-bottom: 8px;
+}
+
+.skip-buttons button {
+  background: #202832;
+  color: white;
+  border: 1px solid #46515f;
+  border-radius: 20px;
+  padding: 9px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.skip-buttons button:hover {
+  background: #344252;
+}
   </style>
 </head>
 <body>
@@ -131,6 +151,14 @@
             <div class="eyebrow">Oh-No Corp RECORDS</div>
             <h1>TAKAISHI</h1>
             <div class="artist">大野物産株式会社</div>
+            <div class="skip-buttons">
+  <button type="button" onclick="skipAudio(-10)">
+    ↶ 10秒戻る
+  </button>
+  <button type="button" onclick="skipAudio(10)">
+    10秒進む ↷
+  </button>
+</div>
           </div>
         </div>
 
@@ -208,5 +236,19 @@
     </div>
     <p class="note">PERSONAL MUSIC PLAYER</p>
   </main>
+  <script>
+function skipAudio(seconds) {
+  const audio = document.getElementById("music-player");
+
+  if (!audio) return;
+
+  const nextTime = audio.currentTime + seconds;
+
+  audio.currentTime = Math.max(
+    0,
+    Math.min(nextTime, audio.duration || Infinity)
+  );
+}
+</script>
 </body>
 </html>

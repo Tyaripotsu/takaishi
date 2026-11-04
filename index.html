@@ -153,16 +153,16 @@
             <div class="artist">大野物産株式会社</div>
             <div class="skip-buttons">
   <button type="button" onclick="skipAudio(-10)">
-    -10
+    -10 sec
   </button>
   <button type="button" onclick="skipAudio(10)">
-    +10
+    +10 sec
   </button>
 </div>
           </div>
         </div>
 
-        <audio controls preload="metadata">
+        <audio id="music-player" controls preload="metadata">
           <source src="TAKAISHI.mp3" type="audio/mpeg">
           お使いのブラウザは音声再生に対応していません。
         </audio>
@@ -235,17 +235,17 @@
     </div>
     <p class="note">PERSONAL MUSIC PLAYER</p>
   </main>
-  <script>
+ <script>
 function skipAudio(seconds) {
   const audio = document.getElementById("music-player");
 
-  if (!audio) return;
+  if (!audio || !Number.isFinite(audio.duration)) return;
 
   const nextTime = audio.currentTime + seconds;
 
   audio.currentTime = Math.max(
     0,
-    Math.min(nextTime, audio.duration || Infinity)
+    Math.min(nextTime, audio.duration)
   );
 }
 </script>
